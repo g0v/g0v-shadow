@@ -11,11 +11,11 @@
         <link rel="stylesheet" href="./flat-ui/bootstrap/css/bootstrap.css">
         <link rel="stylesheet" href="./flat-ui/bootstrap/css/bootstrap-responsive.css">
         <link rel="stylesheet" href="./flat-ui/css/flat-ui.css">
-        
+
         <!-- Using only with Flat-UI (free)-->
             <link rel="stylesheet" href="./common-files/css/icon-font.css">
-        <!-- end -->  
-        
+        <!-- end -->
+
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="css/addon.css">
 
@@ -38,7 +38,7 @@
             </div>
         </header>
 
-<!-- section 1 -->        
+<!-- section 1 -->
         <section class="header-10-sub v-center bg-midnight-blue">
             <div class="background"></div>
             <div>
@@ -46,13 +46,13 @@
                     <div class="hero-unit">
                         <img
                         src="img/g0v-only-invert.svg" width= 50% height= 50%
-                        alt="g0v"> 
+                        alt="g0v">
                         <h1>Get any government website</h1>
                         <p>
-                            <input type="text" class="form-control login-field" style="max-width:80%; min-width:70%;" placeholder="Enter gov website url" id="login-name">
+                            <input id="url" type="text" class="form-control login-field" style="max-width:80%; min-width:70%;" placeholder="Enter gov website url">
                             </div>
 
-                            <a class="btn btn-primary" href="#" style="width:100px;">Hack it</a>
+                            <button id="submit" class="btn btn-primary" href="#" style="width:100px;">Hack it</button>
                         </p>
                         <br/>
                     </div>
@@ -63,9 +63,9 @@
 <!-- section 2 -->
         <section id= "section-2" class="content-7 v-center">
             <div>
-               
+
                 <div class="container">
-                    <div class="row v-center" style="font-size:20px;">
+                    <div class="row v-center" style="font-size:20px;" id="keywords">
 Keywords:
                     </div>
                 </div>
@@ -78,20 +78,20 @@ Keywords:
         <footer class="footer-3" style="padding-top: 30px; padding-bottom: 30px;">
             <div class="container">
                 <div class="row v-center">
-                    <div class="span2">                        
+                    <div class="span2">
                         <div class="span2">
                         <a class="brand"><img
                         src="img/g0v-icon-invert.png" width="66" height="28"
                         alt="g0v" style="padding: 10px 0"></a>
                         </div>
                     </div>
-                    <div class="span7">                        
+                    <div class="span7">
                         <div class="span7">
                             <div class="additional-links">
                             </div>
                         </div>
                     </div>
-                    <div class="span3">                        
+                    <div class="span3">
                         <div class="span3">
                             <a
                             href="https://creativecommons.org/licenses/by/4.0/"
@@ -119,5 +119,37 @@ Keywords:
         <script src="./common-files/js/startup-kit.js"></script>
         <script src="js/script.js"></script>
 
+
+        <!-- for text analysis -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/xregexp/3.2.0/xregexp-all.min.js"></script>
+        <script src="https://pulipulichen.github.io/jieba-js/require-jieba-js.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
+        <script>
+          function analysis() {
+            var value = $('#url').val();
+            if (!value) return;
+
+            var data = {};
+
+            $('#url').val('');
+            fetch('https://crossorigin.me/' + value, { headers: { origin: 'http://g0v.tw/' } }).then((response) => response.text()).then((body) => {
+              var regex = XRegExp('\\p{Han}+', 'ig');
+              var results = [];
+              while ((result = regex.exec(body)) !== null) results.push(result[0]);
+              var text = results.join('');
+
+              call_jieba_cut(text, (keywords) => {
+                _.forEach(keywords, keyword => {
+                  if (!data[keyword]) data[keyword] = 1;
+                  data[keyword] += 1;
+                });
+
+                const reply = _.take(_.sortBy(_.map(data, (quantity, keyword) => ({ keyword, quantity })), ['quantity']).reverse(), 100);
+                $('#keywords').text(_.map(reply, (item) => item.keyword + ': ' + item.quantity ).join('\n'));
+              });
+            });
+          }
+          $('#submit').click(analysis);
+        </script>
     </body>
 </html>
