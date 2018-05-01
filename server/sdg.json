@@ -1,0 +1,202 @@
+[
+  {
+    "id": "SDG1",
+    "name": "No Poverty",
+    "keywords": [
+      "poverty",
+      "employment",
+      "work",
+      "resource",
+      "policy",
+      "equality",
+      "income",
+      "poor",
+      "distribution"
+    ]
+  },
+  {
+    "id": "SDG2",
+    "name": "Zero Hunger",
+    "keywords": [
+      "hunger",
+      "food",
+      "nutrition",
+      "health",
+      "agriculture",
+      "farmer",
+      "weather",
+      "animal",
+      "infrastructure",
+      "trade"
+    ]
+  },
+  {
+    "id": "SDG3",
+    "name": "Good Health and Well-being",
+    "keywords": [
+      "clean",
+      "medicine",
+      "death",
+      "disease",
+      "health",
+      "water"
+    ]
+  },
+  {
+    "id": "SDG4",
+    "name": "Quality Education",
+    "keywords": [
+      "education",
+      "learning",
+      "literacy",
+      "culture",
+      "equal",
+      "gender",
+      "inclusive",
+      "school",
+      "teacher"
+    ]
+  },
+  {
+    "id": "SDG5",
+    "name": "Gender Equality",
+    "keywords": [
+      "living",
+      "employment",
+      "gender",
+      "women",
+      "girl",
+      "marriage",
+      "right"
+    ]
+  },
+  {
+    "id": "SDG6",
+    "name": "Clean Water and Sanitation",
+    "keywords": [
+      "water",
+      "sanitation"
+    ]
+  },
+  {
+    "id": "SDG7",
+    "name": "Affordable and Clean Energy",
+    "keywords": [
+      "affordable",
+      "clean",
+      "energy"
+    ]
+  },
+  {
+    "id": "SDG8",
+    "name": "Decent Work and Economic Growth",
+    "keywords": [
+      "work",
+      "economic",
+      "growth"
+    ]
+  },
+  {
+    "id": "SDG9",
+    "name": "Industry, Innovation and Infrastructure",
+    "keywords": [
+      "internet",
+      "economic",
+      "energy",
+      "infrastructure",
+      "technology",
+      "trade",
+      "innovation",
+      "science",
+      "research"
+    ]
+  },
+  {
+    "id": "SDG10",
+    "name": "Reduced Inequalities",
+    "keywords": [
+      "equality",
+      "housing",
+      "health",
+      "poverty",
+      "race",
+      "gender"
+    ]
+  },
+  {
+    "id": "SDG11",
+    "name": "Sustainable Cities and Communities",
+    "keywords": [
+      "sustainable",
+      "city",
+      "community"
+    ]
+  },
+  {
+    "id": "SDG12",
+    "name": "Responsible Consumption and Production",
+    "keywords": [
+      "capitalism",
+      "economy",
+      "commericial",
+      "energy",
+      "waste",
+      "recycle"
+    ]
+  },
+  {
+    "id": "SDG13",
+    "name": "Climate Action",
+    "keywords": [
+      "carbon",
+      "climate",
+      "pollution",
+      "warming"
+    ]
+  },
+  {
+    "id": "SDG14",
+    "name": "Life below Water",
+    "keywords": [
+      "fish",
+      "coastal",
+      "carbon",
+      "ocean",
+      "sea"
+    ]
+  },
+  {
+    "id": "SDG15",
+    "name": "Life on Land",
+    "keywords": [
+      "animal",
+      "agriculture",
+      "land",
+      "ecosystem"
+    ]
+  },
+  {
+    "id": "SDG16",
+    "name": "Peace, Justice and Strong Institutions",
+    "keywords": [
+      "accountability",
+      "arms",
+      "equality",
+      "freedom",
+      "justice",
+      "peace",
+      "police"
+    ]
+  },
+  {
+    "id": "SDG17",
+    "name": "Partnerships for the Goal",
+    "keywords": [
+      "society",
+      "partnerships",
+      "trade",
+      "international",
+      "world"
+    ]
+  }
+]
