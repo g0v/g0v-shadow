@@ -2,6 +2,8 @@ require('dotenv').config()
 
 const express = require('express')
 const app = express()
+const cors = require('cors')
+app.use(cors())
 const googleTranslate = require('google-translate')(process.env.GOOGLE_API_KEY)
 const request = require('request-promise')
 const LRU = require('lru-cache')
