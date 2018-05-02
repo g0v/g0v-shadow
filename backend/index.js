@@ -71,13 +71,7 @@ app.get('/topics/:sdgID/resources', catchError(async function (req, res, next) {
     return res.json({ result: cachedResources })
   }
 
-  let sdgName
-  for (let sdg of sdgs) {
-    if (sdg.id === sdgID) {
-      sdgName = sdg.name
-      break
-    }
-  }
+  let sdgName = sdgs.find(x => x.id === sdgID).name
 
   if (!sdgName) {
     return res.status(404)
