@@ -10,11 +10,7 @@
 
 #### Word-embedding API
 
-1. `git clone git@github.com:3Top/word2vec-api.git`
-2. 取得 word-embedding model。來源可能是：
-    * 從 https://github.com/3Top/word2vec-api 的列表自行挑選，這些 model 包含的文字很完整，會需要 6G 以上的記憶體才能啟動 API
-    * https://github.com/eyaler/word2vec-slim 有簡化過的 model，只需 ~500MB 記憶體即可載入。
-3. 按照 https://github.com/3Top/word2vec-api 的說明啟動 API
+參考 [https://github.com/poga/word2vec-api](https://github.com/poga/word2vec-api).
 
 #### Topics API & Resources API
 
