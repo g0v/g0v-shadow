@@ -78,13 +78,10 @@ app.get('/topics/:sdgID/resources', catchError(async function (req, res, next) {
   }
 
   let resources = JSON.parse(await request(AIRTABLE_API + '?api_key=' + AIRTABLE_API_KEY))
-  let related = []
-  for (let rec of resources.records) {
-    if (rec.fields.SDG.includes(sdgName)) {
-      related.push(rec.fields)
-    }
-  }
+
+  let related = resources.records.filter(r => r.fields.SDG.includes(sdgName))
   resourcesCache.set(sdgID, related)
+
   res.json({ result: related })
 }))
 
