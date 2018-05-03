@@ -17,6 +17,7 @@ COPY . /app/
 # build, if it exists.
 RUN npm install --unsafe-perm || \
   ((if [ -f npm-debug.log ]; then \
-      cat npm-debug.log; \
-    fi) && false)
+  cat npm-debug.log; \
+  fi) && false)
+RUN npm rebuild
 CMD npm start
