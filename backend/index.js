@@ -8,10 +8,20 @@ const googleTranslate = require('google-translate')(process.env.GOOGLE_API_KEY)
 const request = require('request-promise')
 const LRU = require('lru-cache')
 const fs = require('fs')
+const normalizeUrl = require('normalize-url')
+const crypto = require('crypto')
 
 const wordAPI = process.env.WORD_API
 const AIRTABLE_API = process.env.AIRTABLE_API
 const AIRTABLE_API_KEY = process.env.AIRTABLE_API_KEY
+
+const firebaseAdmin = require('firebase-admin')
+firebaseAdmin.initializeApp({
+  credential: firebaseAdmin.credential.cert(require(process.env.SERVICE_ACCOUNT_KEY)),
+  databaseURL: process.env.DATABASE_URL
+})
+
+var db = firebaseAdmin.firestore()
 
 const resourcesCache = LRU({
   max: 1,
@@ -35,9 +45,19 @@ app.get('/topics', catchError(async function (req, res, next) {
   if (!url) {
     return res.status(401).json({ message: 'URL is required' })
   }
+  url = normalizeUrl(url)
+
+  let hash = crypto.createHash('sha256').update(url).digest('base64')
+  let pageRef = db.collection('pages').doc(hash)
 
   let cachedScore = scoreCache.get(url)
   if (cachedScore) {
+    db.runTransaction(t => {
+      return t.get(pageRef).then(doc => {
+        t.update(pageRef, { visit: doc.data().visit + 1 })
+      })
+    })
+
     return res.json({ score: cachedScore })
   }
 
@@ -62,6 +82,18 @@ app.get('/topics', catchError(async function (req, res, next) {
   scores = scores.sort((x, y) => y.score - x.score)
   scoreCache.set(url, scores)
 
+  pageRef.set({
+    title: title,
+    scores: scores,
+    url: url
+  }, { merge: true })
+
+  db.runTransaction(t => {
+    return t.get(pageRef).then(doc => {
+      t.update(pageRef, { visit: doc.data().visit + 1 })
+    })
+  })
+
   res.send({ scores })
 }))
 
@@ -85,6 +117,18 @@ app.get('/topics/:sdgID/resources', catchError(async function (req, res, next) {
   resourcesCache.set(sdgID, related)
 
   res.json({ result: related })
+}))
+
+app.get('/pages', catchError(async function (req, res, next) {
+  let pagesRef = db.collection('pages').orderBy('visit', 'desc')
+  let pagesSnapshot = await pagesRef.get()
+
+  let result = []
+  pagesSnapshot.forEach(page => {
+    result.push({ id: page.id, data: page.data() })
+  })
+
+  res.json({ result })
 }))
 
 app.use(function (err, req, res, next) {

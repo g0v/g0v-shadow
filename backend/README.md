@@ -17,3 +17,78 @@
 1. 將 `default.env` 複製到 `.env`，填上檔案中的設定檔
 2. `npm i`
 3. `npm start`
+
+## API
+
+#### `GET /topics?url=...`
+
+取得指定網址的相關主題分析。Score 越高越相關
+
+回傳：
+
+```
+{
+    "score": [
+        {
+            "id": "SDG9",
+            "name": "Industry, Innovation and Infrastructure",
+            "score": 0.2803659146671196
+        },
+        {
+            "id": "SDG12",
+            "name": "Responsible Consumption and Production",
+            "score": 0.17836946064641415
+        },
+        ...
+    ]
+}
+```
+
+#### `GET /topics/:id/resources`
+
+取得指定主題相關的連結。ID 為 `SDG1`~`SDG17`，參考 [sdg.json](./sdg.json)
+
+回傳：
+
+```
+{
+    "result": [
+        {
+            "id": "recSMExGCHZiK7Dix",
+            "fields": {
+                "URL": "https://google.com",
+                "Name": "test",
+                "SDG": [
+                "Good Health and Well-being",
+                "Zero Hunger"
+                ]
+            },
+            "createdTime": "2018-05-01T08:41:34.000Z"
+        }
+    ]
+}
+```
+
+#### `GET /pages`
+
+取得所有曾經產生過的 shadow page，依照瀏覽次數排序
+
+回傳：
+
+```
+{
+    "result": [
+        {
+            "id": "BQRvJsg+jIiz3asuq2PQ0WIkrB5WRTX8dc3O7kegk40=",
+            "data": {
+                "scores": [
+                  //...
+                ],
+                "visit": 3,
+                "url": "https://google.com",
+                "title": "Google"
+            }
+        }
+    ]
+}
+```

@@ -14,8 +14,10 @@
     "cors": "^2.8.4",
     "dotenv": "^5.0.1",
     "express": "^4.16.3",
+    "firebase-admin": "^5.12.0",
     "google-translate": "^2.1.0",
     "lru-cache": "^4.1.2",
+    "normalize-url": "^2.0.1",
     "npm": "^6.0.0",
     "request": "^2.85.0",
     "request-promise": "^4.2.2"
