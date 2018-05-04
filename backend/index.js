@@ -83,7 +83,8 @@ app.get('/topics', catchError(async function (req, res, next) {
   pageRef.set({
     title: title,
     scores: scores,
-    url: url
+    url: url,
+    visit: 0
   }, { merge: true })
 
   db.runTransaction(t => {
