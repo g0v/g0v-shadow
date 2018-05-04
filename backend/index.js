@@ -29,7 +29,7 @@ const resourcesCache = LRU({
 
 const sdgs = JSON.parse(fs.readFileSync('./sdg.json'))
 
-const scoreCache = LRU({
+const topicCache = LRU({
   max: 1000,
   maxAge: 5 * 60 * 1000
 })
@@ -48,15 +48,15 @@ app.get('/topics', catchError(async function (req, res, next) {
   let hash = crypto.createHash('sha256').update(url).digest('base64')
   let pageRef = db.collection('pages').doc(hash)
 
-  let cachedScore = scoreCache.get(url)
-  if (cachedScore) {
+  let cached = topicCache.get(url)
+  if (cached) {
     db.runTransaction(t => {
       return t.get(pageRef).then(doc => {
         t.update(pageRef, { visit: doc.data().visit + 1 })
       })
     })
 
-    return res.json({ score: cachedScore })
+    return res.json(cached)
   }
 
   // 取得 url 的 <title> tag
@@ -78,7 +78,7 @@ app.get('/topics', catchError(async function (req, res, next) {
     scores.push({ id: sdg.id, name: sdg.name, score: parseFloat(score) })
   }
   scores = scores.sort((x, y) => y.score - x.score)
-  scoreCache.set(url, scores)
+  topicCache.set(url, { title, scores })
 
   pageRef.set({
     title: title,
