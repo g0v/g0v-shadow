@@ -36,7 +36,7 @@ class Resources extends Component {
               {this.props.scores.slice(0, 3).map(s => {
                 return (
                   <li className='pv2' key={s.id}>
-                    <a href='#' className='link blue lh-title'>
+                    <a href={`https://sustainabledevelopment.un.org/${s.id}`} className='link blue lh-title'>
                       <span className='fw7 underline-hover'>{s.name}</span>
                     </a>
                   </li>
