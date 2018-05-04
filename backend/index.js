@@ -45,7 +45,7 @@ app.get('/topics', catchError(async function (req, res, next) {
     return res.status(401).json({ message: 'URL is required' })
   }
 
-  let hash = crypto.createHash('sha256').update(url).digest('base64')
+  let hash = crypto.createHash('sha256').update(url).digest('hex')
   let pageRef = db.collection('pages').doc(hash)
 
   let cached = topicCache.get(url)

@@ -6,6 +6,7 @@ import './App.css'
 class App extends Component {
   async componentDidMount () {
     let shadowURL = getShadowURL()
+    console.log('shadowing', shadowURL)
     let resp = await fetch(`http://shadow.devpoga.org/topics?url=${shadowURL}`)
     let json = await resp.json()
     console.log(json)

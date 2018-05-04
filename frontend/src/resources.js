@@ -30,6 +30,23 @@ class Resources extends Component {
         <section className='pa2 pa4-ns'>
           <article className='br2 bg-white pa4 mw6 center'>
             <div>
+              <h4 className='f5 fw4 black-60 dib v-mid mv0 mr3'>相關主題</h4>
+            </div>
+            <ul className='list f6 pl0 mt3 mb0'>
+              {this.props.scores.slice(0, 3).map(s => {
+                return (
+                  <li className='pv2' key={s.id}>
+                    <a href='#' className='link blue lh-title'>
+                      <span className='fw7 underline-hover'>{s.name}</span>
+                    </a>
+                  </li>
+                )
+              })
+              }
+            </ul>
+          </article>
+          <article className='br2 bg-white pa4 mw6 center'>
+            <div>
               <h4 className='f5 fw4 black-60 dib v-mid mv0 mr3'>相關資源</h4>
             </div>
             <ul className='list f6 pl0 mt3 mb0'>
