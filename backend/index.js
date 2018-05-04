@@ -8,7 +8,6 @@ const googleTranslate = require('google-translate')(process.env.GOOGLE_API_KEY)
 const request = require('request-promise')
 const LRU = require('lru-cache')
 const fs = require('fs')
-const normalizeUrl = require('normalize-url')
 const crypto = require('crypto')
 
 const wordAPI = process.env.WORD_API
@@ -45,7 +44,6 @@ app.get('/topics', catchError(async function (req, res, next) {
   if (!url) {
     return res.status(401).json({ message: 'URL is required' })
   }
-  url = normalizeUrl(url)
 
   let hash = crypto.createHash('sha256').update(url).digest('base64')
   let pageRef = db.collection('pages').doc(hash)
