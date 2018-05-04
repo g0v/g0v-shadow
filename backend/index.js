@@ -92,7 +92,7 @@ app.get('/topics', catchError(async function (req, res, next) {
     })
   })
 
-  res.send({ scores })
+  res.send({ title, scores })
 }))
 
 app.get('/topics/:sdgID/resources', catchError(async function (req, res, next) {
