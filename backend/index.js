@@ -24,7 +24,7 @@ var db = firebaseAdmin.firestore()
 
 const resourcesCache = LRU({
   max: 1,
-  maxAge: 5 * 60 * 1000
+  maxAge: 5 * 1000
 })
 
 const sdgs = JSON.parse(fs.readFileSync('./sdg.json'))
