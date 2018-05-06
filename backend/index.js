@@ -60,12 +60,12 @@ app.get('/topics', catchError(async function (req, res, next) {
   }
 
   // 取得 url 的 <title> tag
-  var html = await request(url)
-  let title = html.match(/<title>([\s\S]+)<\/title>/)[1]
+  var html = await request({ url: url, rejectUnauthorized: false })
+  let title = html.match(/<title>([\s\S]+)<\/title>/)
   if (!title) {
-    return res.status(401).json({ message: 'parsing failed' })
+    return res.status(401).json({ message: 'unable to parse url title' })
   }
-  title = title.trim()
+  title = title[1].trim()
 
   // 翻譯成英文
   let translation = await translate(title)
