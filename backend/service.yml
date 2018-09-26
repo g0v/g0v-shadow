@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-api-service
+  labels:
+    app: web
+    tier: frontend
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 8080
+    targetPort: http-server
+  selector:
+    app: web
+    tier: frontend
