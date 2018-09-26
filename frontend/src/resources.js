@@ -7,7 +7,7 @@ class Resources extends Component {
     let list = []
     for (let s of scores.slice(0, 3)) {
       console.log(s.id)
-      let resp = await fetch(`http://shadow.devpoga.org/topics/${s.id}/resources`)
+      let resp = await fetch(`http://35.221.159.176:8080/topics/${s.id}/resources`)
       let json = await resp.json()
       list = list.concat(json.result)
     }
