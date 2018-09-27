@@ -9,6 +9,7 @@ const request = require('request-promise')
 const LRU = require('lru-cache')
 const fs = require('fs')
 const crypto = require('crypto')
+const normalizeUrl = require('normalize-url')
 
 const wordAPI = process.env.WORD_API
 const AIRTABLE_API = process.env.AIRTABLE_API
@@ -40,7 +41,8 @@ const catchError = fn =>
   }
 
 app.get('/topics', catchError(async function (req, res, next) {
-  var url = req.query.url
+  var url = normalizeUrl(req.query.url)
+
   if (!url) {
     return res.status(401).json({ message: 'URL is required' })
   }
