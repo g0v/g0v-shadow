@@ -10,6 +10,7 @@ const LRU = require('lru-cache')
 const fs = require('fs')
 const crypto = require('crypto')
 const normalizeUrl = require('normalize-url')
+const morgan = require('morgan')
 
 const wordAPI = process.env.WORD_API
 const AIRTABLE_API = process.env.AIRTABLE_API
@@ -39,6 +40,8 @@ const catchError = fn =>
   (req, res, next) => {
     Promise.resolve(fn(req, res, next)).catch(next)
   }
+
+app.use(morgan('combined'))
 
 app.get('/topics', catchError(async function (req, res, next) {
   var url = normalizeUrl(req.query.url)
