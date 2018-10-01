@@ -15,7 +15,7 @@ class App extends Component {
       loadingProgress = 0
     }
 
-    this.state = { queryURL: '', route, scores: [], resourceList: [], loadingProgress }
+    this.state = { queryURL: '', route, scores: [], resourceList: [], loadingProgress, loadError: false }
   }
 
   componentDidMount () {
@@ -24,9 +24,7 @@ class App extends Component {
 
   async onSubmit (e) {
     e.preventDefault()
-    let route = { p: '/s/', d: this.state.queryURL }
-    this.setState({ route })
-
+    this.setState({ loadError: false })
     await this.loadShadow(this.state.queryURL)
   }
 
@@ -56,30 +54,35 @@ class App extends Component {
   }
 
   async loadShadow (url) {
-    console.log('shadowing', url)
-    let resp = await window.fetch(`https://devpoga.org/shadow/topics?url=${url}`)
-    let json = await resp.json()
-    this.setState({ loadingProgress: 40 })
-    console.log(json)
-    let scores = json.scores
-    let resourceList = []
-    let i = 0
-    for (let s of scores.slice(0, 3)) {
-      console.log('loading', s.id)
-      let resp = await window.fetch(`https://devpoga.org/shadow/topics/${s.id}/resources`)
+    try {
+      console.log('shadowing', url)
+      let resp = await window.fetch(`https://devpoga.org/shadow/topics?url=${url}`)
       let json = await resp.json()
-      resourceList = resourceList.concat(json.result)
-      i++
-      this.setState({ loadingProgress: 40 + 20 * i })
-    }
-    console.log(resourceList)
-    this.setState({ loadingProgress: null })
-    this.setState({ scores: json.scores, title: json.title, queryURL: url, resourceList }, () => {
-      window.history.pushState({}, '', `/s/${json.url}`)
-      console.log('state update', this.state)
+      let route = { p: '/s/', d: url }
+      this.setState({ route, loadingProgress: 40 })
+      console.log(json)
+      let scores = json.scores
+      let resourceList = []
+      let i = 0
+      for (let s of scores.slice(0, 3)) {
+        console.log('loading', s.id)
+        let resp = await window.fetch(`https://devpoga.org/shadow/topics/${s.id}/resources`)
+        let json = await resp.json()
+        resourceList = resourceList.concat(json.result)
+        i++
+        this.setState({ loadingProgress: 40 + 20 * i })
+      }
+      console.log(resourceList)
+      this.setState({ loadingProgress: null })
+      this.setState({ scores: json.scores, title: json.title, queryURL: url, resourceList }, () => {
+        window.history.pushState({}, '', `/s/${json.url}`)
+        console.log('state update', this.state)
 
-      this.renderChart()
-    })
+        this.renderChart()
+      })
+    } catch (e) {
+      this.setState({ loadError: true })
+    }
   }
 
   handleChange (e) {
@@ -100,11 +103,12 @@ class App extends Component {
             </div>
             <form className='min-w-full flex flex-col items-center' onSubmit={this.onSubmit.bind(this)}>
               <input
-                className='text-center mt-4 mx-4 shadow appearance-none border rounded w-3/5 xl:w-2/5 py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline'
+                className={`text-center mt-4 mx-4 shadow appearance-none border rounded w-3/5 xl:w-2/5 py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline ${this.state.loadError ? 'bg-red-lighter' : ''}`}
                 type='text'
                 placeholder='gov. website URL'
                 value={queryURL}
                 onChange={this.handleChange.bind(this)} />
+              {this.state.loadError ? <div className='my-4 text-red'>Failed to load given URL.</div> : ''}
               <input
                 className='cursor-pointer mt-4 bg-grey-light hover:bg-grey text-grey-darker hover:text-black font-bold py-2 px-4 rounded'
                 type='submit'
