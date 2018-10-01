@@ -96,7 +96,7 @@ class App extends Component {
           <div className='w-full mx-auto text-center'>
             <img className='block mx-auto' src='/logo.jpg' />
             <div className='mt-2'>
-              <h4 className='font-normal text-grey-dark'>Find Civic Tech Projects from Gov. Website</h4>
+              <h4 className='font-normal text-grey-dark'>Find Civic Tech Projects related to Gov. Website</h4>
             </div>
             <form className='min-w-full flex flex-col items-center' onSubmit={this.onSubmit.bind(this)}>
               <input
