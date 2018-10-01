@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-class Resources extends Component {
+class Links extends Component {
   render () {
     return (
       <div className='border p-8'>
@@ -29,4 +29,4 @@ class Resources extends Component {
   }
 }
 
-export default Resources
+export default Links

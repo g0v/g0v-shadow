@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Resources from './resources'
+import Links from './Links'
 import Progress from './Progress'
 
 class App extends Component {
@@ -145,7 +145,7 @@ class App extends Component {
             <h4 className='uppercase'>Ingredients</h4>
             <div id='chart' className='mx-auto mt-4' style={{ width: 700 }} />
           </div>
-          <Resources resourceList={this.state.resourceList} />
+          <Links resourceList={this.state.resourceList} />
           <div className='text-center text-grey-dark my-8'>
             <a href='https://g0v.tw/' className='text-grey-dark no-underline'>g0v.tw</a> <span className='text-grey-darker'>/</span> <a href='https://airtable.com/invite/l?inviteId=invlV3IHHywKx24B1&inviteToken=e4f6f52aefab15cb28b6cb734222bd0f4267e05b07b926eac83bee334ef6ef67' className='no-underline text-grey-dark'>submit your project</a> <span className='text-grey-darker'>/</span> <a className='no-underline text-grey-dark' href='https://github.com/g0v/g0v-shadow'>github</a>
           </div>
