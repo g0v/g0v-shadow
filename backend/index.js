@@ -83,7 +83,7 @@ app.get('/topics', catchError(async function (req, res, next) {
     scores.push({ id: sdg.id, name: sdg.name, score: parseFloat(score) })
   }
   scores = scores.sort((x, y) => y.score - x.score)
-  topicCache.set(url, { title, scores })
+  topicCache.set(url, { title, scores, url })
 
   pageRef.set({
     title: title,
@@ -98,7 +98,7 @@ app.get('/topics', catchError(async function (req, res, next) {
     })
   })
 
-  res.send({ title, scores })
+  res.send({ title, scores, url })
 }))
 
 app.get('/topics/:sdgID/resources', catchError(async function (req, res, next) {
