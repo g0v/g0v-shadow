@@ -5,7 +5,7 @@ class Resources extends Component {
     return (
       <div className='border p-8'>
         <div className='my-4'>
-          <h4 className='text-grey-darker'>Related Projects</h4>
+          <h4 className='text-grey-darker uppercase'>Related Projects</h4>
         </div>
         {this.props.resourceList.map(r => {
           return (

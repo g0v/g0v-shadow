@@ -24,6 +24,8 @@ class App extends Component {
 
   async onSubmit (e) {
     e.preventDefault()
+    let route = { p: '/s/', d: this.state.queryURL }
+    this.setState({ route })
 
     await this.loadShadow(this.state.queryURL)
   }
@@ -89,8 +91,8 @@ class App extends Component {
       const queryURL = this.state.queryURL
 
       return (
-        <div className='flex flex-col items-center justify-between min-h-screen'>
-          <div className='font-serif pt-2 text-2xl font-bold'>g<span className='font-mono text-xl'>0</span>v shadow</div>
+        <div className='flex flex-col items-center justify-between min-h-screen tracking-wide'>
+          <a className='no-underline text-black' href='/'><div className='font-serif pt-2 text-2xl font-bold'>g<span className='font-mono text-xl'>0</span>v shadow</div></a>
           <div className='w-full mx-auto text-center'>
             <img className='block mx-auto' src='/logo.jpg' />
             <div className='mt-2'>
@@ -98,7 +100,7 @@ class App extends Component {
             </div>
             <form className='min-w-full flex flex-col items-center' onSubmit={this.onSubmit.bind(this)}>
               <input
-                className='mt-4 mx-4 shadow appearance-none border rounded w-3/5 xl:w-2/5 py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline'
+                className='text-center mt-4 mx-4 shadow appearance-none border rounded w-3/5 xl:w-2/5 py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline'
                 type='text'
                 placeholder='gov. website URL'
                 value={queryURL}
@@ -111,21 +113,24 @@ class App extends Component {
             </form>
             <h1 className='App-title'>{this.state.title}</h1>
           </div>
-          <div />
+          <div className='text-grey-dark mb-2'>
+            g0v.tw <span className='text-grey-darker'>/</span> submit your project <span className='text-grey-darker'>/</span> github
+          </div>
         </div>
       )
     }
 
     if (this.state.route.p === '/s/') {
       if (this.state.loadingProgress !== null) {
-        return <div className='font-sans tracking-wide max-w-xl mx-auto mt-8'>
+        return <div className='font-sans tracking-wide max-w-xl mx-auto'>
+          <a className='no-underline text-black' href='/'><div className='font-serif pt-2 text-2xl font-bold text-center mb-8'>g<span className='font-mono text-xl'>0</span>v shadow</div></a>
           <Progress percent={this.state.loadingProgress} />
         </div>
       }
 
       return (
         <div className='font-sans tracking-wide max-w-xl mx-auto'>
-          <div className='font-serif pt-2 text-2xl font-bold text-center mb-8'>g<span className='font-mono text-xl'>0</span>v shadow</div>
+          <a className='no-underline text-black' href='/'><div className='font-serif pt-2 text-2xl font-bold text-center mb-8'>g<span className='font-mono text-xl'>0</span>v shadow</div></a>
           <div className='flex flex-row justify-between'>
             <div>
               <h2 className='text-lg font-normal'><a className='no-underline text-grey-darker' href={this.state.queryURL}>{this.state.queryURL}</a></h2>
@@ -137,7 +142,7 @@ class App extends Component {
             </div>
           </div>
           <div className='mt-8 text-center'>
-            <h4>Ingredients</h4>
+            <h4 className='uppercase'>Ingredients</h4>
             <div id='chart' className='mx-auto mt-4' style={{ width: 700 }} />
           </div>
           <Resources resourceList={this.state.resourceList} />
