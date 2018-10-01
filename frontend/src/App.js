@@ -57,7 +57,7 @@ class App extends Component {
 
   async loadShadow (url) {
     console.log('shadowing', url)
-    let resp = await window.fetch(`http://35.221.159.176:8080/topics?url=${url}`)
+    let resp = await window.fetch(`https://devpoga.org/shadow/topics?url=${url}`)
     let json = await resp.json()
     this.setState({ loadingProgress: 40 })
     console.log(json)
@@ -66,7 +66,7 @@ class App extends Component {
     let i = 0
     for (let s of scores.slice(0, 3)) {
       console.log('loading', s.id)
-      let resp = await window.fetch(`http://35.221.159.176:8080/topics/${s.id}/resources`)
+      let resp = await window.fetch(`https://devpoga.org/shadow/topics/${s.id}/resources`)
       let json = await resp.json()
       resourceList = resourceList.concat(json.result)
       i++
