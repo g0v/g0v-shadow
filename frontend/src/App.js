@@ -131,21 +131,23 @@ class App extends Component {
       return (
         <div className='font-sans tracking-wide max-w-xl mx-auto'>
           <a className='no-underline text-black' href='/'><div className='font-serif pt-2 text-2xl font-bold text-center mb-8'>g<span className='font-mono text-xl'>0</span>v shadow</div></a>
-          <div className='flex flex-row justify-between'>
-            <div>
-              <h2 className='text-lg font-normal'><a className='no-underline text-grey-darker' href={this.state.queryURL}>{this.state.queryURL}</a></h2>
-              <h1 className='inline-block mt-1 text-5xl'><a className='no-underline text-black' href={this.state.queryURL}>{this.state.title}</a></h1>
+          <div className='min-h-screen'>
+            <div className='flex flex-row justify-between'>
+              <div>
+                <h2 className='text-lg font-normal'><a className='no-underline text-grey-darker' href={this.state.queryURL}>{this.state.queryURL}</a></h2>
+                <h1 className='inline-block mt-1 text-5xl'><a className='no-underline text-black' href={this.state.queryURL}>{this.state.title}</a></h1>
+              </div>
+              <div className='mt-2'>
+                <h4 className='text-grey-darker'>Links</h4>
+                <p className='font-serif text-5xl text-right'>{this.state.resourceList.length}</p>
+              </div>
             </div>
-            <div className='mt-2'>
-              <h4 className='text-grey-darker'>Links</h4>
-              <p className='font-serif text-5xl text-right'>{this.state.resourceList.length}</p>
+            <div className='mt-8 text-center'>
+              <h4 className='uppercase'>Ingredients</h4>
+              <div id='chart' className='mx-auto mt-4' style={{ width: 700 }} />
             </div>
+            <Links resourceList={this.state.resourceList} />
           </div>
-          <div className='mt-8 text-center'>
-            <h4 className='uppercase'>Ingredients</h4>
-            <div id='chart' className='mx-auto mt-4' style={{ width: 700 }} />
-          </div>
-          <Links resourceList={this.state.resourceList} />
           <div className='text-center text-grey-dark my-8'>
             <a href='https://g0v.tw/' className='text-grey-dark no-underline'>g0v.tw</a> <span className='text-grey-darker'>/</span> <a href='https://airtable.com/invite/l?inviteId=invlV3IHHywKx24B1&inviteToken=e4f6f52aefab15cb28b6cb734222bd0f4267e05b07b926eac83bee334ef6ef67' className='no-underline text-grey-dark'>submit your project</a> <span className='text-grey-darker'>/</span> <a className='no-underline text-grey-dark' href='https://github.com/g0v/g0v-shadow'>github</a>
           </div>
